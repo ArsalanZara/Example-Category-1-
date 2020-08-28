@@ -5,13 +5,8 @@ const handlebars = require("express3-handlebars").create({
   defaultLayout: "main"
 });
 
-var fortunes = [
-  "Conquer your fears or they will conquer you.",
-  "Rivers need springs.",
-  "Do not fear what you don't know.",
-  "You will have a pleasant surprise.",
-  "Whenever possible, keep it simple."
-];
+//Libaries
+const fortune = require("./lib/fortune.js");
 
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
@@ -23,8 +18,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/about", function(req, res) {
-  let randomForTune = fortunes[Math.floor(Math.random() * fortunes.length)];
-  res.render("about", { fortune: randomForTune });
+  res.render("about", { fortune: fortune.randomForTune() });
 });
 
 // 404 catch-all handler (middleware)
